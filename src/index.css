@@ -1,0 +1,458 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&family=JetBrains+Mono:wght@400;700&family=Noto+Serif+SC:wght@700&display=swap');
+@import "tailwindcss";
+
+/* Custom Scrollbar for Glass UI */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Glass UI Classes */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+}
+
+.glass-button {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.4), 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.glass-button-active {
+  background: rgba(99, 102, 241, 0.4); /* indigo */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(129, 140, 248, 0.6);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.4), 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.glass-input {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: white;
+}
+.glass-input:focus {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.3);
+  outline: none;
+}
+
+/* Glass Slider */
+.glass-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 12px;
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  outline: none;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+  backdrop-filter: blur(4px);
+}
+
+.glass-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2), inset 0 -2px 4px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255,255,255,0.8);
+  transition: transform 0.1s;
+}
+
+.glass-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+.glass-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2), inset 0 -2px 4px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255,255,255,0.8);
+  transition: transform 0.1s;
+}
+
+/* Glass Color Picker */
+.glass-color-picker {
+  -webkit-appearance: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 0;
+  background: transparent;
+}
+.glass-color-picker::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+.glass-color-picker::-webkit-color-swatch {
+  border: none;
+  border-radius: 50%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent body scroll, let the app handle it */
+}
+
+.preview-container-wrapper {
+  container-type: inline-size;
+  container-name: preview;
+}
+
+.preview-wrapper {
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  padding: 40px 20px;
+  font-family: var(--font-body, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif);
+}
+
+.card-container {
+  width: var(--card-width);
+  height: var(--card-height);
+  background-color: var(--card-bg);
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--card-radius);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.2),
+    0 20px 60px rgba(0, 0, 0, 0.15),
+    0 0 100px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s, height 0.3s, border-radius 0.3s, background-color 0.3s;
+  position: relative;
+}
+
+.card-container::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  background-image: var(--card-texture, none);
+  background-size: cover;
+  background-position: center;
+  opacity: var(--texture-opacity, 1);
+  z-index: 0;
+}
+
+.content-area {
+  position: relative;
+  z-index: 1;
+  padding: var(--content-padding);
+  overflow-y: auto;
+  height: 100%;
+  font-size: var(--body-font-size);
+  color: var(--body-color);
+  line-height: var(--body-line-height);
+}
+
+/* Custom Scrollbar */
+.content-area::-webkit-scrollbar {
+  width: 8px;
+}
+.content-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+.content-area::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+/* Typography */
+.content-area h1 {
+  font-family: var(--font-heading, 'Noto Serif SC', serif);
+  font-weight: 700;
+  font-size: var(--h1-size);
+  margin-bottom: 16px;
+  line-height: 1.3;
+  color: var(--h1-color);
+}
+
+.content-area h2 {
+  font-family: var(--font-heading, 'Times New Roman', Times, serif);
+  font-size: var(--h2-size);
+  margin-top: 40px;
+  margin-bottom: 16px;
+  font-weight: bold;
+  color: var(--h2-color);
+}
+
+.content-area .en-title {
+  font-family: var(--font-en-title, 'Inter', sans-serif);
+  font-size: var(--en-title-size);
+  color: var(--en-title-color);
+  font-weight: 300;
+  margin-bottom: 24px;
+}
+
+.content-area .metadata {
+  font-size: var(--meta-size);
+  color: var(--meta-color);
+  margin-bottom: 32px;
+}
+
+.content-area p {
+  margin-bottom: 20px;
+}
+
+/* Emphasis & Markers */
+.content-area a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.content-area a:hover {
+  text-decoration: underline;
+}
+
+.content-area em {
+  font-style: italic;
+  color: inherit;
+}
+
+.content-area strong {
+  font-weight: bold;
+}
+
+.content-area mark {
+  background-color: var(--mark-bg);
+  color: #111111;
+  font-weight: bold;
+  border-bottom: 2px solid var(--mark-border);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+/* Lists & Quotes */
+.content-area ul, .content-area ol {
+  font-size: calc(var(--body-font-size) - 2px);
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+.content-area ul {
+  list-style-type: disc;
+}
+
+.content-area ol {
+  list-style-type: decimal;
+}
+
+.content-area li {
+  margin-bottom: 8px;
+}
+
+.content-area blockquote {
+  border-left: 6px solid var(--mark-border);
+  background-color: rgba(128, 128, 128, 0.08);
+  padding: 24px 24px 24px 20px;
+  border-radius: 0 12px 12px 0;
+  font-style: italic;
+  margin: 32px 0;
+  color: var(--body-color);
+  opacity: 0.85;
+}
+
+.content-area blockquote p {
+  margin-bottom: 16px;
+  white-space: pre-line; /* This makes single newlines render as line breaks */
+  line-height: 2.2;
+}
+
+.content-area blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* Tables */
+.content-area table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 32px 0;
+  font-size: 0.9em;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.content-area th,
+.content-area td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+}
+
+.content-area th {
+  background-color: rgba(128, 128, 128, 0.08);
+  font-weight: 700;
+  color: var(--h2-color);
+}
+
+.content-area tr:last-child td {
+  border-bottom: none;
+}
+
+.content-area tr:nth-child(even) {
+  background-color: rgba(128, 128, 128, 0.02);
+}
+
+/* Divider (hr) */
+.content-area hr {
+  border: none;
+  border-top-width: var(--hr-thickness);
+  border-top-style: var(--hr-style);
+  border-top-color: var(--hr-color);
+  opacity: var(--hr-opacity);
+  margin: 40px 0;
+}
+
+/* Code */
+.content-area code {
+  font-family: var(--font-code, 'JetBrains Mono', monospace);
+  color: var(--code-color);
+  background-color: var(--code-bg);
+  padding: 0.2em 0.4em;
+  border-radius: 6px;
+  font-size: 0.85em;
+}
+
+.content-area pre {
+  background: var(--code-bg);
+  padding: 20px;
+  border-radius: 8px;
+  font-size: calc(var(--body-font-size) - 7px);
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.content-area pre code {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+}
+
+/* Images */
+.content-area img.article-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin: 16px 0 24px 0;
+  display: block;
+}
+
+/* Container Queries for Responsive Design */
+@container preview (max-width: 650px) {
+  .preview-wrapper {
+    padding: 20px 10px;
+    align-items: flex-start;
+  }
+  
+  .card-container {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 80vh;
+  }
+
+  .content-area {
+    padding: 30px !important;
+    font-size: calc(var(--body-font-size) - 4px) !important;
+  }
+
+  .content-area h1 {
+    font-size: calc(var(--h1-size) - 12px) !important;
+  }
+
+  .content-area h2 {
+    font-size: calc(var(--h2-size) - 2px) !important;
+  }
+}
+
+/* Scrollbar Hiding */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none !important;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+/* Print Styles */
+@media print {
+  body, html {
+    background: white !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .sidebar {
+    display: none !important;
+  }
+  .preview-container-wrapper {
+    background: white !important;
+    overflow: visible !important;
+    height: auto !important;
+    display: block !important;
+  }
+  .preview-wrapper {
+    background: white !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+  .card-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    background: white !important;
+  }
+  .content-area {
+    overflow: visible !important;
+    height: auto !important;
+    padding: 0 !important;
+  }
+  .content-area::-webkit-scrollbar {
+    display: none !important;
+  }
+}

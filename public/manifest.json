@@ -1,0 +1,17 @@
+{
+  "name": "排版生成器",
+  "short_name": "内容排版",
+  "description": "极简图文排版生成器",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#1e1e2e",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Crect width='1024' height='1024' rx='256' fill='%231e1e2e'/%3E%3Cpath d='M300 350h424v60H300zm0 140h424v60H300zm0 140h284v60H300z' fill='%23fff'/%3E%3C/svg%3E",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
